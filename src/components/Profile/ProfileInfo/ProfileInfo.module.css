@@ -1,0 +1,13 @@
+.flex_container{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.flex_item {
+    padding: 10px;
+}
+
+.img_wrapper img {
+    width: 200px;
+}

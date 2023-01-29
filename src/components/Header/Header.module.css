@@ -1,0 +1,22 @@
+.header {
+    grid-area: h;
+    background-color: #065;
+}
+
+.header img{
+    width: 60px;
+}
+
+.login{
+    float: right;
+    background-color: lemonchiffon;
+  width: 60px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login a{
+    color:sandybrown;
+    text-decoration: none;
+}

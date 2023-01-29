@@ -1,0 +1,25 @@
+.nav {
+    grid-area: n;
+    background-color:lightgrey;
+
+}
+.item{
+    margin: 10px;
+}
+.item a{
+    margin: 30%;
+    color: azure;
+    text-decoration: none;
+
+}
+.item a:hover{
+    color: #006655;
+}
+.item a.active{
+    color: green;
+}
+.flex_container{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-evenly;
+}
