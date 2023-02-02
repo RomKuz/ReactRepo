@@ -13,12 +13,12 @@ export const getUsers = (currentPage = 1,pageSize = 10)=>{
 }
 
 //post /follow with credentials
-export const followUser = (userId)=>{
+export const postFollowUser = (userId)=>{
    return  instance.post( `follow/${userId}`,{}, {withCredentials:true}).then(response=>response.data)
 }
 
 //Delete /follow with credentials
-export const unfollowUser = (userId)=>{
+export const deleteFollowUser = (userId)=>{
    return instance.delete( `follow/${userId}`, {withCredentials:true}).then(respose=>respose.data)
 }
 // get auth/me with credentials

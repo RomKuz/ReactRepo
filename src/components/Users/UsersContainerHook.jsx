@@ -1,48 +1,46 @@
 import {connect} from "react-redux";
 import React, {useEffect} from "react";
 import {
-    followUser,
-    setCurrentPage,
-    setTotalUserCount,
-    setUsers,
-    toggleIsFetching,
-    unfollowUser
+    followSuccess, followUser, getSetUser, toggleFollowingInProgress, unfollowSuccess, unfollowUser
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {getUsers} from "../../api/api";
+
 
 const UsersHookContainer = (props) => {
+    //On page init
     useEffect(() => {
-        props.toggleIsFetching(true)
-        getUsers(props.currentPage, props.pageSize).then(data => {
-            props.toggleIsFetching(false)
-            props.setUsers(data.items)
-        })
+        props.getSetUser(props.usersPage.currentPage, props.usersPage.pageSize)
     }, [])
-    const useEventListener = (pageNumber) => {
-        props.toggleIsFetching(true)
-        props.setCurrentPage(pageNumber);
-        getUsers(pageNumber, props.pageSize).then(data => {
-            props.toggleIsFetching(false)
-            props.setUsers(data.items)
-        })
-    }
-    return (
-        <>
-            {props.usersPage.isFetching ? <Preloader/> : null}
-            <Users totalUsersCount={props.usersPage.totalUsersCount}
-                   pageSize={props.usersPage.pageSize}
-                   currentPage={props.usersPage.currentPage}
-                   usersData={props.usersPage.usersData}
 
-                   onPageChanged={useEventListener}
-                   unfollowUser={props.unfollowUser}
-                   followUser={props.followUser}
-                   toggleIsFetching={props.toggleIsFetching}
-            />
-        </>
-    )
+    //On Page Change
+    const useOnPageChange = (pageNumber) => {
+        props.getSetUser(pageNumber, props.usersPage.pageSize)
+    }
+
+    const useFollowListener = (userId) => {
+        props.followUserById(userId)
+    }
+    const useUnFollowListener = (userId) => {
+        props.unFollowUserById(userId)
+    }
+
+    return (<>
+        {props.usersPage.isFetching ? <Preloader/> : null}
+        <Users totalUsersCount={props.usersPage.totalUsersCount}
+               pageSize={props.usersPage.pageSize}
+               currentPage={props.usersPage.currentPage}
+               usersData={props.usersPage.usersData}
+               followingInProgress={props.usersPage.followingInProgress}
+
+               followUser={useFollowListener}
+               unfollowUser={useUnFollowListener}
+               onPageChanged={useOnPageChange}
+
+
+
+        />
+    </>)
 }
 
 
@@ -56,12 +54,9 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-    followUser,
-    unfollowUser,
-    setUsers,
-    setCurrentPage,
-    setTotalUserCount,
-    toggleIsFetching
+    followUser: followSuccess, unfollowUser: unfollowSuccess, toggleFollowingInProgress, //Thunks
+    getSetUser, followUserById: followUser, unFollowUserById: unfollowUser
+
 })(UsersHookContainer)
 
 

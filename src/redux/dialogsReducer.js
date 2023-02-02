@@ -11,12 +11,12 @@ let initialState = {
         {id: 6, name: 'Katia'}
     ],
     messagesData: [
-        {id: 1, message: 'Ser'},
+        {id: 1, message: 'Sex'},
         {id: 2, message: 'qweha'},
         {id: 3, message: 'SASA'},
         {id: 4, message: 'Sakom'},
         {id: 5, message: 'Vas'},
-        {id: 6, message: 'Slsls'}
+        {id: 6, message: 'Sisi'}
     ],
     messageInputText: ''
 }

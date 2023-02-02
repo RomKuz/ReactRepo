@@ -3,7 +3,8 @@ import s from "./Users.module.css";
 import userPhoto from "../../assets/images/avatar.png";
 import {NavLink} from "react-router-dom";
 
-import {followUser, unfollowUser} from "../../api/api";
+// import {followUser, unfollowUser} from "../../api/api";
+
 
 const Users = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -31,22 +32,13 @@ const Users = (props) => {
                             </NavLink>
                         </div>
                         <div>
-                            {u.followed
-                                ? <button onClick={() => {
-                                    unfollowUser(u.id).then(data => {
-                                        if(data.resultCode === 0){
-                                            props.unfollowUser(u.id)
-                                        }
-                                    })
+                            {u.followed ?
+                                <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.unfollowUser(u.id)
                                 }}> Unfollow
-                                </button>
-                                : <button onClick={() => {
-                                    followUser(u.id).then(data => {
-                                        if(data.resultCode === 0){
-                                            props.followUser(u.id)
-                                        }
-                                    })
-
+                                </button> :
+                                <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                    props.followUser(u.id)
                                 }}>Follow</button>}
                         </div>
                     </div>
@@ -70,7 +62,6 @@ const Users = (props) => {
                     </div>
                 </div>
             </div>)}</div>
-        </div>
-    )
+        </div>)
 }
 export default Users
